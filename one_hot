@@ -1,0 +1,20 @@
+import pandas as pd
+
+# Случайные данные
+import random
+lst = ['robot'] * 10
+lst += ['human'] * 10
+random.shuffle(lst)
+data = pd.DataFrame({'whoAmI': lst})
+
+# Получаем уникальные значения из столбца 'whoAmI'
+categories = data['whoAmI'].unique()
+
+# Создаем новые столбцы для каждой категории
+for category in categories:
+    data[category] = (data['whoAmI'] == category).astype(int)
+
+# Удаляем исходный столбец 'whoAmI'
+data.drop('whoAmI', axis=1, inplace=True)
+
+data.head()
